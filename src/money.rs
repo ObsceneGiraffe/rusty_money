@@ -14,8 +14,7 @@ use std::str::FromStr;
 /// Operations on Money objects always create new instances of Money, with the exception
 /// of `round()`.
 #[derive(Debug, PartialEq, Eq, Clone)]
-pub struct Money<'a, T: CurrencyType>
-{
+pub struct Money<'a, T: CurrencyType> {
     amount: Decimal,
     currency: &'a T,
 }
@@ -172,7 +171,10 @@ impl<'a> Money<'a, IsoCurrency> {
     ///
     /// Supports fuzzy amount strings like "100", "100.00" and "-100.00"
     // TODO - Consider moving into Formatter
-    pub fn from_string(amount: String, currency: String) -> Result<Money<'a, IsoCurrency>, MoneyError> {
+    pub fn from_string(
+        amount: String,
+        currency: String,
+    ) -> Result<Money<'a, IsoCurrency>, MoneyError> {
         let currency = IsoCurrency::from_string(currency)?;
         let format = LocalFormat::from_locale(currency.locale);
         let amount_parts: Vec<&str> = amount.split(format.exponent_separator).collect();
@@ -350,7 +352,7 @@ pub enum Round {
     HalfEven,
 }
 
-impl<'a, T: CurrencyType> fmt::Display for Money<'a, T> {
+impl<'a, T: CurrencyType + FormattableCurrency> fmt::Display for Money<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let currency = self.currency;
         let format = LocalFormat::from_locale(currency.locale());

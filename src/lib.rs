@@ -8,6 +8,14 @@
 //!  stores metadata like its numeric code, full name and symbol.
 //!
 //! ```edition2018
+//! use rusty_money::{money, Money, Currency};
+//! 
+//! let currency = Currency::new("USD", 2, 2);
+//! let one_dollar = Money::new(10, currency); // 10 USD
+//! 
+//! // You can also initialize formattable currency, which can be printed in a few ways.
+//!
+//!   
 //! // Money can be initialized in a few ways:
 //! use rusty_money::Locale::*;
 //! use rusty_money::{money, Money, Currency, IsoCurrency};
@@ -26,9 +34,6 @@
 //! let thousand = money!(1000, "USD");
 //! println!("{}", thousand > hundred);     // false
 //! println!("{}", thousand.is_positive()); // true
-//! 
-//! let bitcoin = Currency::new("BTC", 2, EnUs, 2, "Bitcoin", "₿", true);
-//! Money::from_major(2000, &bitcoin);  // 2000 BTC
 //! ```
 //!
 //! ## Precision and Rounding

@@ -5,8 +5,7 @@ use std::collections::HashMap;
 
 /// A struct to store `ExchangeRate`s.
 #[derive(Debug, Default)]
-pub struct Exchange<'a, T: CurrencyType>
-{
+pub struct Exchange<'a, T: CurrencyType> {
     map: HashMap<String, ExchangeRate<'a, T>>,
 }
 
@@ -39,19 +38,14 @@ impl<'a, T: CurrencyType> Exchange<'a, T> {
 
 /// A struct to store rates of conversion between two currencies.
 #[derive(Debug, PartialEq, Copy, Clone)]
-pub struct ExchangeRate<'a, T: CurrencyType>
-{
+pub struct ExchangeRate<'a, T: CurrencyType> {
     pub from: &'a T,
     pub to: &'a T,
     rate: Decimal,
 }
 
 impl<'a, T: CurrencyType> ExchangeRate<'a, T> {
-    pub fn new(
-        from: &'a T,
-        to: &'a T,
-        rate: Decimal,
-    ) -> Result<ExchangeRate<'a, T>, MoneyError> {
+    pub fn new(from: &'a T, to: &'a T, rate: Decimal) -> Result<ExchangeRate<'a, T>, MoneyError> {
         if from == to {
             return Err(MoneyError::InvalidCurrency);
         }
