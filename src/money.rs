@@ -217,13 +217,6 @@ impl<'a, T: CurrencyType> Money<'a, T> {
     /// Creates a Money object given an integer and a currency reference.
     ///
     /// The integer represents minor units of the currency (e.g. 1000 -> 10.00 in USD )
-    pub fn new(amount: i64, currency: &'a T) -> Money<'a, T> {
-        Money::<T>::from_minor(amount, currency)
-    }
-
-    /// Creates a Money object given an integer and a currency reference.
-    ///
-    /// The integer represents minor units of the currency (e.g. 1000 -> 10.00 in USD )
     pub fn from_minor(amount: i64, currency: &'a T) -> Money<'a, T> {
         let amount = Decimal::new(amount, currency.exponent());
         Money { amount, currency }
@@ -386,32 +379,30 @@ mod tests {
     fn money_major_minor() {
         let major_usd = Money::from_major(10, IsoCurrency::get(USD));
         let minor_usd = Money::from_minor(1000, IsoCurrency::get(USD));
-        let new_usd = Money::new(1000, IsoCurrency::get(USD));
         assert_eq!(major_usd, minor_usd);
-        assert_eq!(major_usd, new_usd);
     }
 
     #[test]
     fn money_from_string_parses_correctly() {
-        let expected_money = Money::new(2999, IsoCurrency::get(GBP));
+        let expected_money = Money::from_minor(2999, IsoCurrency::get(GBP));
         let money = Money::from_string("29.99".to_string(), "GBP".to_string()).unwrap();
         assert_eq!(money, expected_money);
     }
 
     #[test]
     fn money_from_string_parses_signs() {
-        let expected_money = Money::new(-300, IsoCurrency::get(GBP));
+        let expected_money = Money::from_minor(-300, IsoCurrency::get(GBP));
         let money = Money::from_string("-3".to_string(), "GBP".to_string()).unwrap();
         assert_eq!(money, expected_money);
 
-        let expected_money = Money::new(300, IsoCurrency::get(GBP));
+        let expected_money = Money::from_minor(300, IsoCurrency::get(GBP));
         let money = Money::from_string("+3".to_string(), "GBP".to_string()).unwrap();
         assert_eq!(money, expected_money);
     }
 
     #[test]
     fn money_from_string_ignores_separators() {
-        let expected_money = Money::new(100000000, IsoCurrency::get(GBP));
+        let expected_money = Money::from_minor(100000000, IsoCurrency::get(GBP));
         let money = Money::from_string("1,000,000".to_string(), "GBP".to_string()).unwrap();
         assert_eq!(money, expected_money);
     }

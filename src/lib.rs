@@ -11,7 +11,7 @@
 //! use rusty_money::{money, Money, Currency};
 //! 
 //! let currency = Currency::new("USD", 2, 2);
-//! let one_dollar = Money::new(10, &currency); // 10 USD
+//! let one_dollar = Money::from_minor(100, &currency); // 1 USD
 //! 
 //! // You can also initialize formattable currency, which can be printed in a few ways.
 //!
@@ -21,12 +21,11 @@
 //! use rusty_money::{IsoCurrency};
 //! use rusty_money::Iso::*;
 //!
-//! money!(2000, "USD");                            // 2000 USD
-//! money!("2000.00", "USD");                       // 2000 USD
-//! Money::new(200000, IsoCurrency::get(USD));         // 2000 USD
+//! money!(2000, "USD");                               // 2000 USD
+//! money!("2000.00", "USD");                          // 2000 USD
 //! Money::from_major(2000, IsoCurrency::get(USD));    // 2000 USD
 //! Money::from_minor(200000, IsoCurrency::get(USD));  // 2000 USD
-//! Money::from_str("2,000.00", "USD").unwrap();    // 2000 USD
+//! Money::from_str("2,000.00", "USD").unwrap();       // 2000 USD
 //!
 //!
 //! // Money objects with the same Currency can be compared:
