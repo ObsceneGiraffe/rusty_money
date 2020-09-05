@@ -116,6 +116,6 @@ rate.convert(iso_money!(1000, "USD")); // 500 EUR
 
 // An Exchange can be used to store ExchangeRates for later use
 let mut exchange = Exchange::new();
-exchange.add_or_update_rate(&rate);
+exchange.set_rate(&rate);
 exchange.get_rate(IsoCurrency::get(USD), IsoCurrency::get(EUR));
 ```

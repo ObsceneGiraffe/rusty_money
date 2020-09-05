@@ -17,7 +17,7 @@ impl<'a, T: CurrencyType> Exchange<'a, T> {
     }
 
     /// Update an ExchangeRate or add it if does not exist.
-    pub fn add_or_update_rate(&mut self, rate: &'a ExchangeRate<T>) {
+    pub fn set_rate(&mut self, rate: &'a ExchangeRate<T>) {
         let key = Exchange::generate_key(rate.from, rate.to);
         self.map.insert(key, *rate);
     }
@@ -79,8 +79,8 @@ mod tests {
         let eur_gbp_rate = ExchangeRate::new(usd, gbp, dec!(1.6)).unwrap();
 
         let mut exchange = Exchange::new();
-        exchange.add_or_update_rate(&eur_usd_rate);
-        exchange.add_or_update_rate(&eur_gbp_rate);
+        exchange.set_rate(&eur_usd_rate);
+        exchange.set_rate(&eur_gbp_rate);
 
         let fetched_rate = exchange.get_rate(usd, eur).unwrap();
         assert_eq!(fetched_rate.rate, dec!(1.5));

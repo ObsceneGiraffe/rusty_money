@@ -11,14 +11,14 @@
 //! use rusty_money::{money, Money, Currency};
 //! 
 //! let currency = Currency::new("USD", 2, 2);
-//! let one_dollar = Money::new(10, currency); // 10 USD
+//! let one_dollar = Money::new(10, &currency); // 10 USD
 //! 
 //! // You can also initialize formattable currency, which can be printed in a few ways.
 //!
 //!   
 //! // Money can be initialized in a few ways:
 //! use rusty_money::Locale::*;
-//! use rusty_money::{money, Money, Currency, IsoCurrency};
+//! use rusty_money::{IsoCurrency};
 //! use rusty_money::Iso::*;
 //!
 //! money!(2000, "USD");                            // 2000 USD
@@ -95,7 +95,7 @@
 //!
 //! // An Exchange can be used to store ExchangeRates for later use
 //! let mut exchange = Exchange::new();
-//! exchange.add_or_update_rate(&rate);
+//! exchange.set_rate(&rate);
 //! exchange.get_rate(IsoCurrency::get(USD), IsoCurrency::get(EUR));
 //! ```
 //!
